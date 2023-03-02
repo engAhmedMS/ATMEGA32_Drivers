@@ -182,7 +182,8 @@ u16 ADC_u16ReadADCInMV(u8 channel);
 /****************************************************************/
 
 
-void ADC_voidReadADCInterrupt(u8* an_read);
+void ADC_voidReadADCInterrupt(u8 channel);
 u16 ADC_read();
+void ADC_voidRead8channels(u8* an_reads);
 
 #endif	/** !comment  :  End of guard                          **/

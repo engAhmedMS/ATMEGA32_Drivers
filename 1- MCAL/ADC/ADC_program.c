@@ -241,11 +241,10 @@ u16 ADC_read()
 	return ADCH;
 }
 
-void ADC_voidReadADCInterrupt(u8* an_read)
+void ADC_voidReadADCInterrupt(u8 channel)
 {
-	Global_ADC_Reading = an_read;
 	// select channel
-	ADC_u8SelChannel(ADC_CHANNEL_NUMBER, ADC_MODE_SINGLE);
+	ADC_u8SelChannel(channel, ADC_MODE_SINGLE);
 	//ADC_VoidStartConversion();
 	ADC_voidStartConversion();
 
@@ -338,7 +337,18 @@ static u8 ADC_u8Prescale(u8 Copy_u8Scale)
 	return 0;
 }
 
+#define NUMBER_CHANNELS	8
+void ADC_voidRead8channels(u8* an_reads)
+{
+	u8 arr_an_channels = {DIO_U8_PIN_0, DIO_U8_PIN_1, DIO_U8_PIN_2, DIO_U8_PIN_3,
+						  DIO_U8_PIN_4, DIO_U8_PIN_5, DIO_U8_PIN_6, DIO_U8_PIN_7};
 
+	for(u8 idx= 0; idx<NUMBER_CHANNELS; idx++)
+	{
+		an_reads[idx] = ADC_u16ReadADCInMV(arr_an_channels[idx]);
+	}
+
+}
 /***********************************************************************************************/
 /************************************* END OF PROGRAM ******************************************/
 /***********************************************************************************************/
